@@ -26,7 +26,7 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Install dependencies
+      - name: Install System Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -43,38 +43,44 @@ jobs:
         run: |
           cat > buildozer.spec <<'EOF'
           [app]
-          title = JarvisApp
+
+          title = JARVIS V1
           package.name = jarvisapp
           package.domain = org.test
 
           source.dir = .
           source.include_exts = py,png,jpg,jpeg,kv,atlas,json,wav,mp3
 
-          version = 0.1
-          requirements = python3,kivy
+          version = 1.0
+
+          requirements = python3,kivy,plyer,pyjnius
 
           orientation = portrait
           fullscreen = 0
 
-          android.permissions = INTERNET
+          android.permissions = INTERNET,RECORD_AUDIO
+
           android.api = 33
           android.minapi = 21
           android.ndk = 25b
+
           android.archs = arm64-v8a
+
           android.accept_sdk_license = True
 
           p4a.bootstrap = sdl2
 
           [buildozer]
+
           log_level = 2
           warn_on_root = 1
           EOF
 
-      - name: Accept Android SDK licenses
+      - name: Accept Android SDK Licenses
         run: |
           yes | sdkmanager --licenses || true
 
-      - name: Clean old build
+      - name: Clean Old Build
         run: |
           rm -rf .buildozer
           rm -rf bin
@@ -86,6 +92,6 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Jarvis-APK
+          name: JARVIS-APK
           path: bin/*.apk
           if-no-files-found: error
