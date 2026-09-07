@@ -9,7 +9,7 @@ source.include_exts = py,png,jpg,jpeg,kv,atlas,json,txt,wav,mp3
 
 version = 1.0
 
-requirements = python3,kivy,plyer,pyjnius,android
+requirements = python3,kivy,plyer,pyjnius,android,google-generativeai
 
 orientation = portrait
 fullscreen = 0
